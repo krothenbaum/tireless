@@ -1,0 +1,12 @@
+# import User from './generated/prisma.graphql'
+# import Draft from './generated/prisma.graphql'
+# import Match from './generated/prisma.graphql'
+
+type Query {
+  user(id: ID!): User
+}
+
+type Mutation {
+  addDraft(userId: ID!, draftDate: DateTime!, colors: String!, format: String!): Draft
+  addMatch(draftId: ID!, matchNum: Int!, gamesWon: Int!, gamesLost: Int!, matchWon: Boolean!): Match
+}

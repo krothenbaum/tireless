@@ -1,0 +1,1116 @@
+# source: https://us1.prisma.sh/kyle-rothenbaum-e9a77b/tireless/dev
+# timestamp: Sun Jul 08 2018 22:43:56 GMT-0700 (PDT)
+
+type AggregateDraft {
+  count: Int!
+}
+
+type AggregateMatch {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+scalar DateTime
+
+type Draft implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId(where: UserWhereInput): User!
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+  matches(where: MatchWhereInput, orderBy: MatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Match!]
+}
+
+"""A connection to a list of items."""
+type DraftConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DraftEdge]!
+  aggregate: AggregateDraft!
+}
+
+input DraftCreateInput {
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+  userId: UserCreateOneWithoutDraftsInput!
+  matches: MatchCreateManyWithoutDraftIdInput
+}
+
+input DraftCreateManyWithoutUserIdInput {
+  create: [DraftCreateWithoutUserIdInput!]
+  connect: [DraftWhereUniqueInput!]
+}
+
+input DraftCreateOneWithoutMatchesInput {
+  create: DraftCreateWithoutMatchesInput
+  connect: DraftWhereUniqueInput
+}
+
+input DraftCreateWithoutMatchesInput {
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+  userId: UserCreateOneWithoutDraftsInput!
+}
+
+input DraftCreateWithoutUserIdInput {
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+  matches: MatchCreateManyWithoutDraftIdInput
+}
+
+"""An edge in a connection."""
+type DraftEdge {
+  """The item at the end of the edge."""
+  node: Draft!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DraftOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  draftDate_ASC
+  draftDate_DESC
+  colors_ASC
+  colors_DESC
+  format_ASC
+  format_DESC
+}
+
+type DraftPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+}
+
+type DraftSubscriptionPayload {
+  mutation: MutationType!
+  node: Draft
+  updatedFields: [String!]
+  previousValues: DraftPreviousValues
+}
+
+input DraftSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DraftSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DraftSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DraftSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DraftWhereInput
+}
+
+input DraftUpdateInput {
+  draftDate: DateTime
+  colors: String
+  format: String
+  userId: UserUpdateOneWithoutDraftsInput
+  matches: MatchUpdateManyWithoutDraftIdInput
+}
+
+input DraftUpdateManyWithoutUserIdInput {
+  create: [DraftCreateWithoutUserIdInput!]
+  connect: [DraftWhereUniqueInput!]
+  disconnect: [DraftWhereUniqueInput!]
+  delete: [DraftWhereUniqueInput!]
+  update: [DraftUpdateWithWhereUniqueWithoutUserIdInput!]
+  upsert: [DraftUpsertWithWhereUniqueWithoutUserIdInput!]
+}
+
+input DraftUpdateOneWithoutMatchesInput {
+  create: DraftCreateWithoutMatchesInput
+  connect: DraftWhereUniqueInput
+  delete: Boolean
+  update: DraftUpdateWithoutMatchesDataInput
+  upsert: DraftUpsertWithoutMatchesInput
+}
+
+input DraftUpdateWithoutMatchesDataInput {
+  draftDate: DateTime
+  colors: String
+  format: String
+  userId: UserUpdateOneWithoutDraftsInput
+}
+
+input DraftUpdateWithoutUserIdDataInput {
+  draftDate: DateTime
+  colors: String
+  format: String
+  matches: MatchUpdateManyWithoutDraftIdInput
+}
+
+input DraftUpdateWithWhereUniqueWithoutUserIdInput {
+  where: DraftWhereUniqueInput!
+  data: DraftUpdateWithoutUserIdDataInput!
+}
+
+input DraftUpsertWithoutMatchesInput {
+  update: DraftUpdateWithoutMatchesDataInput!
+  create: DraftCreateWithoutMatchesInput!
+}
+
+input DraftUpsertWithWhereUniqueWithoutUserIdInput {
+  where: DraftWhereUniqueInput!
+  update: DraftUpdateWithoutUserIdDataInput!
+  create: DraftCreateWithoutUserIdInput!
+}
+
+input DraftWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DraftWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DraftWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DraftWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  draftDate: DateTime
+
+  """All values that are not equal to given value."""
+  draftDate_not: DateTime
+
+  """All values that are contained in given list."""
+  draftDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  draftDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  draftDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  draftDate_lte: DateTime
+
+  """All values greater than the given value."""
+  draftDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  draftDate_gte: DateTime
+  colors: String
+
+  """All values that are not equal to given value."""
+  colors_not: String
+
+  """All values that are contained in given list."""
+  colors_in: [String!]
+
+  """All values that are not contained in given list."""
+  colors_not_in: [String!]
+
+  """All values less than the given value."""
+  colors_lt: String
+
+  """All values less than or equal the given value."""
+  colors_lte: String
+
+  """All values greater than the given value."""
+  colors_gt: String
+
+  """All values greater than or equal the given value."""
+  colors_gte: String
+
+  """All values containing the given string."""
+  colors_contains: String
+
+  """All values not containing the given string."""
+  colors_not_contains: String
+
+  """All values starting with the given string."""
+  colors_starts_with: String
+
+  """All values not starting with the given string."""
+  colors_not_starts_with: String
+
+  """All values ending with the given string."""
+  colors_ends_with: String
+
+  """All values not ending with the given string."""
+  colors_not_ends_with: String
+  format: String
+
+  """All values that are not equal to given value."""
+  format_not: String
+
+  """All values that are contained in given list."""
+  format_in: [String!]
+
+  """All values that are not contained in given list."""
+  format_not_in: [String!]
+
+  """All values less than the given value."""
+  format_lt: String
+
+  """All values less than or equal the given value."""
+  format_lte: String
+
+  """All values greater than the given value."""
+  format_gt: String
+
+  """All values greater than or equal the given value."""
+  format_gte: String
+
+  """All values containing the given string."""
+  format_contains: String
+
+  """All values not containing the given string."""
+  format_not_contains: String
+
+  """All values starting with the given string."""
+  format_starts_with: String
+
+  """All values not starting with the given string."""
+  format_not_starts_with: String
+
+  """All values ending with the given string."""
+  format_ends_with: String
+
+  """All values not ending with the given string."""
+  format_not_ends_with: String
+  userId: UserWhereInput
+  matches_every: MatchWhereInput
+  matches_some: MatchWhereInput
+  matches_none: MatchWhereInput
+}
+
+input DraftWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Match implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  draftId(where: DraftWhereInput): Draft!
+  matchNum: Int!
+  gamesWon: Int!
+  gamesLost: Int!
+  matchWon: Boolean!
+}
+
+"""A connection to a list of items."""
+type MatchConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MatchEdge]!
+  aggregate: AggregateMatch!
+}
+
+input MatchCreateInput {
+  matchNum: Int!
+  gamesWon: Int!
+  gamesLost: Int!
+  matchWon: Boolean!
+  draftId: DraftCreateOneWithoutMatchesInput!
+}
+
+input MatchCreateManyWithoutDraftIdInput {
+  create: [MatchCreateWithoutDraftIdInput!]
+  connect: [MatchWhereUniqueInput!]
+}
+
+input MatchCreateWithoutDraftIdInput {
+  matchNum: Int!
+  gamesWon: Int!
+  gamesLost: Int!
+  matchWon: Boolean!
+}
+
+"""An edge in a connection."""
+type MatchEdge {
+  """The item at the end of the edge."""
+  node: Match!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MatchOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  matchNum_ASC
+  matchNum_DESC
+  gamesWon_ASC
+  gamesWon_DESC
+  gamesLost_ASC
+  gamesLost_DESC
+  matchWon_ASC
+  matchWon_DESC
+}
+
+type MatchPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  matchNum: Int!
+  gamesWon: Int!
+  gamesLost: Int!
+  matchWon: Boolean!
+}
+
+type MatchSubscriptionPayload {
+  mutation: MutationType!
+  node: Match
+  updatedFields: [String!]
+  previousValues: MatchPreviousValues
+}
+
+input MatchSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MatchSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MatchSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MatchSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MatchWhereInput
+}
+
+input MatchUpdateInput {
+  matchNum: Int
+  gamesWon: Int
+  gamesLost: Int
+  matchWon: Boolean
+  draftId: DraftUpdateOneWithoutMatchesInput
+}
+
+input MatchUpdateManyWithoutDraftIdInput {
+  create: [MatchCreateWithoutDraftIdInput!]
+  connect: [MatchWhereUniqueInput!]
+  disconnect: [MatchWhereUniqueInput!]
+  delete: [MatchWhereUniqueInput!]
+  update: [MatchUpdateWithWhereUniqueWithoutDraftIdInput!]
+  upsert: [MatchUpsertWithWhereUniqueWithoutDraftIdInput!]
+}
+
+input MatchUpdateWithoutDraftIdDataInput {
+  matchNum: Int
+  gamesWon: Int
+  gamesLost: Int
+  matchWon: Boolean
+}
+
+input MatchUpdateWithWhereUniqueWithoutDraftIdInput {
+  where: MatchWhereUniqueInput!
+  data: MatchUpdateWithoutDraftIdDataInput!
+}
+
+input MatchUpsertWithWhereUniqueWithoutDraftIdInput {
+  where: MatchWhereUniqueInput!
+  update: MatchUpdateWithoutDraftIdDataInput!
+  create: MatchCreateWithoutDraftIdInput!
+}
+
+input MatchWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MatchWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MatchWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MatchWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  matchNum: Int
+
+  """All values that are not equal to given value."""
+  matchNum_not: Int
+
+  """All values that are contained in given list."""
+  matchNum_in: [Int!]
+
+  """All values that are not contained in given list."""
+  matchNum_not_in: [Int!]
+
+  """All values less than the given value."""
+  matchNum_lt: Int
+
+  """All values less than or equal the given value."""
+  matchNum_lte: Int
+
+  """All values greater than the given value."""
+  matchNum_gt: Int
+
+  """All values greater than or equal the given value."""
+  matchNum_gte: Int
+  gamesWon: Int
+
+  """All values that are not equal to given value."""
+  gamesWon_not: Int
+
+  """All values that are contained in given list."""
+  gamesWon_in: [Int!]
+
+  """All values that are not contained in given list."""
+  gamesWon_not_in: [Int!]
+
+  """All values less than the given value."""
+  gamesWon_lt: Int
+
+  """All values less than or equal the given value."""
+  gamesWon_lte: Int
+
+  """All values greater than the given value."""
+  gamesWon_gt: Int
+
+  """All values greater than or equal the given value."""
+  gamesWon_gte: Int
+  gamesLost: Int
+
+  """All values that are not equal to given value."""
+  gamesLost_not: Int
+
+  """All values that are contained in given list."""
+  gamesLost_in: [Int!]
+
+  """All values that are not contained in given list."""
+  gamesLost_not_in: [Int!]
+
+  """All values less than the given value."""
+  gamesLost_lt: Int
+
+  """All values less than or equal the given value."""
+  gamesLost_lte: Int
+
+  """All values greater than the given value."""
+  gamesLost_gt: Int
+
+  """All values greater than or equal the given value."""
+  gamesLost_gte: Int
+  matchWon: Boolean
+
+  """All values that are not equal to given value."""
+  matchWon_not: Boolean
+  draftId: DraftWhereInput
+}
+
+input MatchWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createDraft(data: DraftCreateInput!): Draft!
+  createMatch(data: MatchCreateInput!): Match!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateDraft(data: DraftUpdateInput!, where: DraftWhereUniqueInput!): Draft
+  updateMatch(data: MatchUpdateInput!, where: MatchWhereUniqueInput!): Match
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteDraft(where: DraftWhereUniqueInput!): Draft
+  deleteMatch(where: MatchWhereUniqueInput!): Match
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertDraft(where: DraftWhereUniqueInput!, create: DraftCreateInput!, update: DraftUpdateInput!): Draft!
+  upsertMatch(where: MatchWhereUniqueInput!, create: MatchCreateInput!, update: MatchUpdateInput!): Match!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyDrafts(data: DraftUpdateInput!, where: DraftWhereInput): BatchPayload!
+  updateManyMatches(data: MatchUpdateInput!, where: MatchWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyDrafts(where: DraftWhereInput): BatchPayload!
+  deleteManyMatches(where: MatchWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  drafts(where: DraftWhereInput, orderBy: DraftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Draft]!
+  matches(where: MatchWhereInput, orderBy: MatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Match]!
+  user(where: UserWhereUniqueInput!): User
+  draft(where: DraftWhereUniqueInput!): Draft
+  match(where: MatchWhereUniqueInput!): Match
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  draftsConnection(where: DraftWhereInput, orderBy: DraftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DraftConnection!
+  matchesConnection(where: MatchWhereInput, orderBy: MatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MatchConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  draft(where: DraftSubscriptionWhereInput): DraftSubscriptionPayload
+  match(where: MatchSubscriptionWhereInput): MatchSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  name: String!
+  drafts(where: DraftWhereInput, orderBy: DraftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Draft!]
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  email: String!
+  name: String!
+  drafts: DraftCreateManyWithoutUserIdInput
+}
+
+input UserCreateOneWithoutDraftsInput {
+  create: UserCreateWithoutDraftsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutDraftsInput {
+  email: String!
+  name: String!
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  email_ASC
+  email_DESC
+  name_ASC
+  name_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  name: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  email: String
+  name: String
+  drafts: DraftUpdateManyWithoutUserIdInput
+}
+
+input UserUpdateOneWithoutDraftsInput {
+  create: UserCreateWithoutDraftsInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutDraftsDataInput
+  upsert: UserUpsertWithoutDraftsInput
+}
+
+input UserUpdateWithoutDraftsDataInput {
+  email: String
+  name: String
+}
+
+input UserUpsertWithoutDraftsInput {
+  update: UserUpdateWithoutDraftsDataInput!
+  create: UserCreateWithoutDraftsInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  drafts_every: DraftWhereInput
+  drafts_some: DraftWhereInput
+  drafts_none: DraftWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}

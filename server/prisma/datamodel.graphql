@@ -1,0 +1,30 @@
+type User {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String! @unique
+  name: String!
+  drafts: [Draft!]! @relation(name: "DraftsByUser" onDelete: CASCADE)
+}
+
+type Draft {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: User! @relation(name: "DraftsByUser")
+  draftDate: DateTime!
+  colors: String!
+  format: String!
+  matches: [Match!]! @relation(name: "MatchesByDraft" onDelete: CASCADE)
+}
+
+type Match {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  draftId: Draft! @relation(name: "MatchesByDraft")
+  matchNum: Int!
+  gamesWon: Int!
+  gamesLost: Int!
+  matchWon: Boolean!
+}
