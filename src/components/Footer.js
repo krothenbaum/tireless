@@ -1,9 +1,12 @@
-import styled from "styled-components";
-import Grid from "./Grid";
+import React from 'react';
+import { Grid } from 'reakit';
 
-const Footer = Grid.extend`
-  background-color: #7e4185;
-  grid-area: footer;
-`;
+import SetSymbol from './mtgIcons/SetSymbol';
+
+const Footer = () => (
+  <Grid.Item area="footer">
+    <SetSymbol set="r" size="16px" />
+  </Grid.Item>
+);
 
 export default Footer;
